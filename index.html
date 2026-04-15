@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaDrill Engineering | Professional Borehole & Water Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blue-primary: #2563eb;
+            --blue-dark: #1e3a8a;
+            --blue-light: #dbeafe;
+            --blue-accent: #60a5fa;
+        }
+
+        * { box-sizing: border-box; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
+        h1, h2, h3 { font-family: 'DM Serif Display', serif; }
+
+        /* NAV */
+        #navbar {
+            transition: all 0.4s ease;
+        }
+        #navbar.scrolled {
+            background: rgba(255,255,255,0.92) !important;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+        }
+        .nav-link {
+            position: relative;
+            padding-bottom: 4px;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 2px;
+            background: var(--blue-primary);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        /* HERO */
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(0,0,0,0.72) 0%, rgba(30,58,138,0.55) 100%), url('assets/hero.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50px;
+            padding: 6px 16px;
+            color: #bfdbfe;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+        .hero-badge .dot {
+            width: 8px; height: 8px;
+            background: #34d399;
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.4); }
+        }
+
+        /* ANIMATIONS */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .fade-up-delay-1 { transition-delay: 0.1s; }
+        .fade-up-delay-2 { transition-delay: 0.2s; }
+        .fade-up-delay-3 { transition-delay: 0.3s; }
+        .fade-up-delay-4 { transition-delay: 0.4s; }
+
+        /* STATS */
+        .stat-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.07) 0%, transparent 60%);
+        }
+
+        /* SERVICE CARDS */
+        .service-card {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #e5e7eb;
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(37,99,235,0.12);
+            border-color: #93c5fd;
+        }
+        .service-card .card-icon {
+            transition: all 0.4s ease;
+        }
+        .service-card:hover .card-icon {
+            transform: scale(1.1) rotate(-5deg);
+            background: var(--blue-primary) !important;
+            color: white !important;
+        }
+        .service-card .learn-more {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        .service-card:hover .learn-more {
+            max-height: 60px;
+        }
+
+        /* EQUIPMENT */
+        .equip-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            cursor: pointer;
+        }
+        .equip-card img {
+            transition: transform 0.5s ease;
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        .equip-card:hover img { transform: scale(1.06); }
+        .equip-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: linear-gradient(transparent, rgba(15,23,42,0.9));
+            padding: 24px 20px 20px;
+            transform: translateY(8px);
+            transition: transform 0.3s ease;
+        }
+        .equip-card:hover .equip-overlay { transform: translateY(0); }
+
+        /* PROCESS */
+        .process-connector {
+            position: absolute;
+            top: 32px;
+            left: calc(50% + 32px);
+            right: calc(-50% + 32px);
+            height: 2px;
+            background: linear-gradient(90deg, #93c5fd, #3b82f6);
+        }
+
+        /* TABS / PROJECTS */
+        .tab-btn {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .tab-btn.active {
+            color: var(--blue-primary);
+            border-bottom-color: var(--blue-primary);
+        }
+        .project-card { display: none; }
+        .project-card.show { display: block; }
+
+        /* FAQ */
+        .faq-item { border-bottom: 1px solid #e5e7eb; }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+        }
+        .faq-answer.open { max-height: 300px; padding-bottom: 20px; }
+        .faq-icon { transition: transform 0.3s ease; }
+        .faq-item.active .faq-icon { transform: rotate(45deg); }
+
+        /* PARTNERS MARQUEE */
+        .marquee-track {
+            display: flex;
+            animation: marquee 28s linear infinite;
+            width: max-content;
+        }
+        .marquee-track:hover { animation-play-state: paused; }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .partner-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 64px;
+            padding: 10px 32px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            margin: 0 12px;
+            font-weight: 700;
+            font-size: 14px;
+            color: #64748b;
+            white-space: nowrap;
+            min-width: 140px;
+            transition: border-color 0.2s;
+        }
+        .partner-logo:hover { border-color: #93c5fd; }
+        .partner-logo i { color: var(--blue-primary); margin-right: 8px; font-size: 18px; }
+
+        /* TESTIMONIALS */
+        .testimonial-card {
+            transition: all 0.3s ease;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        /* BLOG */
+        .blog-card { overflow: hidden; transition: all 0.35s ease; border: 1px solid #e5e7eb; }
+        .blog-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(37,99,235,0.1); border-color: #93c5fd; }
+        .blog-img { height: 200px; object-fit: cover; width: 100%; transition: transform 0.5s ease; }
+        .blog-card:hover .blog-img { transform: scale(1.04); }
+
+        /* CONTACT */
+        .input-field {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 10px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: white;
+            outline: none;
+        }
+        .input-field:focus {
+            border-color: var(--blue-primary);
+            box-shadow: 0 0 0 4px rgba(37,99,235,0.08);
+        }
+        .input-field::placeholder { color: #94a3b8; }
+
+        /* WHATSAPP */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 32px; right: 32px;
+            background: #25d366;
+            color: white;
+            border-radius: 50px;
+            padding: 14px 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            box-shadow: 0 8px 25px rgba(37,211,102,0.45);
+            z-index: 100;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.05) translateY(-2px);
+            background: #20b558;
+            box-shadow: 0 12px 30px rgba(37,211,102,0.55);
+        }
+
+        /* SCROLL TOP */
+        #scrollTop {
+            position: fixed;
+            bottom: 100px; right: 32px;
+            width: 44px; height: 44px;
+            background: var(--blue-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            opacity: 0; visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 99;
+            box-shadow: 0 4px 15px rgba(37,99,235,0.4);
+        }
+        #scrollTop.visible { opacity: 1; visibility: visible; }
+        #scrollTop:hover { background: #1d4ed8; transform: translateY(-2px); }
+
+        /* MOBILE MENU */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .mobile-menu.open { max-height: 600px; }
+        .hamburger span {
+            display: block;
+            width: 24px; height: 2px;
+            background: #1e293b;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* SECTION LABEL */
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--blue-primary);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .section-label::before {
+            content: '';
+            width: 24px; height: 2px;
+            background: var(--blue-primary);
+            border-radius: 2px;
+        }
+
+        /* DIVIDER LINE */
+        .section-divider {
+            width: 60px; height: 4px;
+            background: linear-gradient(90deg, var(--blue-primary), var(--blue-accent));
+            border-radius: 4px;
+            margin: 0 auto 16px;
+        }
+
+        /* GRADIENT TEXT */
+        .gradient-text {
+            background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* OPENING HOURS */
+        .hours-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed #e2e8f0;
+            font-size: 14px;
+        }
+        .hours-row:last-child { border-bottom: none; }
+        .hours-badge {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        .open-badge { background: #d1fae5; color: #065f46; }
+        .closed-badge { background: #fee2e2; color: #991b1b; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+<!-- ===================== NAVIGATION ===================== -->
+<nav id="navbar" class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <!-- Logo -->
+        <a href="#home" class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-md">
+                <i class="fas fa-water text-white text-lg"></i>
+            </div>
+            <div>
+                <span class="text-xl font-bold text-gray-900 leading-none block">AquaDrill</span>
+                <span class="text-xs text-blue-600 font-semibold tracking-wider">ENGINEERING</span>
+            </div>
+        </a>
+        <!-- Desktop Nav -->
+        <div class="hidden lg:flex items-center space-x-7 font-semibold text-sm text-gray-600">
+            <a href="#about" class="nav-link hover:text-blue-600 transition">About</a>
+            <a href="#services" class="nav-link hover:text-blue-600 transition">Services</a>
+            <a href="#equipment" class="nav-link hover:text-blue-600 transition">Equipment</a>
+            <a href="#projects" class="nav-link hover:text-blue-600 transition">Projects</a>
+            <a href="#faq" class="nav-link hover:text-blue-600 transition">FAQ</a>
+            <a href="#blog" class="nav-link hover:text-blue-600 transition">Resources</a>
+            <a href="#contact" class="nav-link hover:text-blue-600 transition">Contact</a>
+        </div>
+        <div class="flex items-center gap-3">
+            <a href="tel:+2567XXXXXXXX" class="hidden lg:flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-blue-600 transition">
+                <i class="fas fa-phone text-blue-600"></i> +256 7XX XXXXXX  
+            </a>
+            <a href="https://wa.me/2567XXXXXXXX?text=Hello,%20I%20would%20like%20to%20schedule%20a%20surveying%20appointment."
+               class="bg-blue-600 text-white px-5 py-2.5 rounded-full font-bold hover:bg-blue-700 transition text-sm shadow-md hover:shadow-blue-200">
+                Get a Quote
+            </a>
+            <!-- Hamburger -->
+            <button id="hamburgerBtn" class="hamburger lg:hidden p-1 ml-1" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu lg:hidden bg-white border-t border-gray-100 px-6">
+        <div class="py-4 flex flex-col space-y-1">
+            <a href="#about" class="mobile-nav-link py-3 px-4 rounded-lg text-gray-700 font-semibold hover:bg-blue-50 hover:text-blue-600 transition">About</a>
+            <a href="#services" class="mobile-nav-link py-3 px-4 rounded-lg text-gray-700 font-semibold hover:bg-blue-50 hover:text-blue-600 transition">Services</a>
+            <a href="#equipment" class="mobile-nav-link py-3 px-4 rounded-lg text-gray-700 font-semibold hover:bg-blue-50 hover:text-blue-600 transition">Equipment</a>
+            <a href="#projects" class="mobile-nav-link py-3 px-4 rounded-lg text-gray-700 font-semibold hover:bg-blue-50 hover:text-blue-600 transition">Projects</a>
+            <a href="#faq" class="mobile-nav-link py-3 px-4 rounded-lg text-gray-700 font-semibold hover:bg-blue-50 hover:text-blue-600 transition">FAQ</a>
+            <a href="#blog" class="mobile-nav-link py-3 px-4 rounded-lg text-gray-700 font-semibold hover:bg-blue-50 hover:text-blue-600 transition">Resources</a>
+            <a href="#contact" class="mobile-nav-link py-3 px-4 rounded-lg text-gray-700 font-semibold hover:bg-blue-50 hover:text-blue-600 transition">Contact</a>
+            <div class="pt-3 pb-2 border-t border-gray-100 mt-2 flex gap-3">
+                <a href="tel:+256750398000" class="flex-1 flex items-center justify-center gap-2 py-3 border border-blue-200 rounded-lg text-blue-600 font-semibold text-sm hover:bg-blue-50 transition">
+                    <i class="fas fa-phone"></i> Call Now
+                </a>
+                <a href="https://wa.me/2567XXXXXXXX" class="flex-1 flex items-center justify-center gap-2 py-3 bg-blue-600 rounded-lg text-white font-semibold text-sm hover:bg-blue-700 transition">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<section id="home" class="hero-bg min-h-[92vh] flex items-center text-white relative">
+    <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-blue-600 rounded-full opacity-10 blur-3xl"></div>
+        <div class="absolute bottom-24 left-0 w-72 h-72 bg-blue-400 rounded-full opacity-10 blur-3xl"></div>
+    </div>
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="max-w-3xl">
+            <div class="hero-badge mb-6 fade-up">
+                <span class="dot"></span>
+                Serving East Africa since 2009
+            </div>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight fade-up fade-up-delay-1">
+                Sustainable Water <br> <span class="text-blue-400">Solutions for Africa</span>
+            </h1>
+            <p class="text-lg md:text-xl mb-10 max-w-2xl text-gray-300 leading-relaxed fade-up fade-up-delay-2">
+                Leading experts in borehole drilling, geophysical surveying, and solar water systems. We bring clean water to communities, farms, and industries across East Africa.
+            </p>
+            <div class="flex flex-wrap gap-4 fade-up fade-up-delay-3">
+                <a href="#services" class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-xl font-bold text-base transition shadow-lg shadow-blue-900/40 flex items-center gap-2">
+                    <i class="fas fa-th-large"></i> Explore Services
+                </a>
+                <a href="https://wa.me/2567XXXXXXXX?text=I%20want%20to%20inquire%20about%20surveying%20costs%20and%20scheduling."
+                   class="bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/25 text-white px-8 py-4 rounded-xl font-bold text-base transition flex items-center gap-2">
+                    <i class="fas fa-calendar-check"></i> Schedule Survey
+                </a>
+            </div>
+            <!-- Quick Stats Preview -->
+            <div class="flex flex-wrap gap-8 mt-14 fade-up fade-up-delay-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-blue-600/40 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-award text-blue-300"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold text-lg leading-none">ISO 9001:2015</p>
+                        <p class="text-xs text-gray-400 mt-0.5">Certified</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-blue-600/40 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-check-double text-blue-300"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold text-lg leading-none">500+ Projects</p>
+                        <p class="text-xs text-gray-400 mt-0.5">Completed</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-blue-600/40 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-globe-africa text-blue-300"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold text-lg leading-none">8 Countries</p>
+                        <p class="text-xs text-gray-400 mt-0.5">Across East Africa</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 text-xs">
+        <span class="tracking-widest uppercase text-xs">Scroll</span>
+        <div class="w-px h-10 bg-white/30 relative overflow-hidden">
+            <div class="w-full h-4 bg-white/80 absolute top-0 animate-bounce"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== STATS ===================== -->
+<section class="py-14 bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+        <div style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 30px 30px; width: 100%; height: 100%;"></div>
+    </div>
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center relative z-10">
+            <div class="stat-card p-6 rounded-2xl bg-white/5 backdrop-blur-sm fade-up">
+                <div class="text-5xl font-bold mb-2 gradient-text" style="-webkit-text-fill-color: white;" data-count="15">0</div>
+                <div class="text-xs text-blue-300 font-semibold uppercase tracking-wider mt-1">Years Experience</div>
+            </div>
+            <div class="stat-card p-6 rounded-2xl bg-white/5 backdrop-blur-sm fade-up fade-up-delay-1">
+                <div class="text-5xl font-bold mb-2" data-count="500">0</div>
+                <div class="text-xs text-blue-300 font-semibold uppercase tracking-wider mt-1">Projects Completed</div>
+            </div>
+            <div class="stat-card p-6 rounded-2xl bg-white/5 backdrop-blur-sm fade-up fade-up-delay-2">
+                <div class="text-5xl font-bold mb-2" data-count="8">0</div>
+                <div class="text-xs text-blue-300 font-semibold uppercase tracking-wider mt-1">Countries Served</div>
+            </div>
+            <div class="stat-card p-6 rounded-2xl bg-white/5 backdrop-blur-sm fade-up fade-up-delay-3">
+                <div class="text-5xl font-bold mb-2" data-count="1200">0</div>
+                <div class="text-xs text-blue-300 font-semibold uppercase tracking-wider mt-1">People with Clean Water</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== ABOUT ===================== -->
+<section id="about" class="py-24 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="flex flex-col lg:flex-row gap-16 items-center">
+            <div class="lg:w-1/2 relative fade-up">
+                <div class="absolute -top-6 -left-6 w-48 h-48 bg-blue-50 rounded-3xl -z-10"></div>
+                <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-blue-100 rounded-3xl -z-10"></div>
+                <img src="assets/ceo.jpg" alt="CEO" class="rounded-2xl shadow-2xl w-full object-cover aspect-[4/5]"
+                     onerror="this.style.background='linear-gradient(135deg,#dbeafe,#93c5fd)';this.style.minHeight='460px';this.alt='CEO Photo'">
+                <div class="absolute -bottom-6 left-8 bg-white rounded-2xl shadow-xl p-5 flex items-center gap-4 border border-gray-100">
+                    <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white">
+                        <i class="fas fa-award text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold text-sm text-gray-900">ISO 9001:2015</p>
+                        <p class="text-xs text-gray-500">Quality Certified</p>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:w-1/2 fade-up fade-up-delay-2">
+                <div class="section-label">Message from the CEO</div>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900 leading-tight">Commitment to Excellence in Water Engineering</h2>
+                <div class="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-xl mb-6">
+                    <p class="text-gray-700 leading-relaxed italic">
+                        "At AquaDrill Engineering, our mission is simple: to ensure that every community and business in East Africa has access to clean, reliable water. We believe that water is the foundation of development, and we take our responsibility as engineers with the utmost seriousness."
+                    </p>
+                </div>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    With over a decade of experience, we have evolved from a small drilling firm into a regional leader in geotechnical solutions. Our success is built on technical precision, ethical business practices, and a deep understanding of the unique geological challenges of our region.
+                </p>
+                <div class="grid grid-cols-2 gap-4 mb-8">
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mt-0.5 flex-shrink-0">
+                            <i class="fas fa-check text-blue-600 text-xs"></i>
+                        </div>
+                        <p class="text-sm text-gray-700 font-medium">Hydrogeology certified team</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mt-0.5 flex-shrink-0">
+                            <i class="fas fa-check text-blue-600 text-xs"></i>
+                        </div>
+                        <p class="text-sm text-gray-700 font-medium">Latest drilling technology</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mt-0.5 flex-shrink-0">
+                            <i class="fas fa-check text-blue-600 text-xs"></i>
+                        </div>
+                        <p class="text-sm text-gray-700 font-medium">Full EIA compliance</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mt-0.5 flex-shrink-0">
+                            <i class="fas fa-check text-blue-600 text-xs"></i>
+                        </div>
+                        <p class="text-sm text-gray-700 font-medium">Post-project maintenance</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 pt-4 border-t border-gray-100">
+                    <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">JD</div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 text-lg">Eng. John Doe</h4>
+                        <p class="text-gray-500 text-sm">Managing Director & CEO</p>
+                    </div>
+                    <div class="ml-auto hidden md:block">
+                        <img src="" alt="signature" class="opacity-30 w-20" onerror="this.style.display='none'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== SERVICES ===================== -->
+<section id="services" class="py-24 bg-gray-50">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16 fade-up">
+            <div class="section-label mx-auto justify-center">What We Do</div>
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-4">Comprehensive Water & Engineering Services</h2>
+            <p class="text-gray-500 max-w-2xl mx-auto">From initial hydrogeological survey to final commissioning — we handle every phase of your water project with precision.</p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Service 1 -->
+            <div class="service-card bg-white p-8 rounded-2xl fade-up">
+                <div class="card-icon w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-5 text-2xl">
+                    <i class="fas fa-wave-square"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Geophysical Surveying</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-4">Advanced hydrogeological investigations using resistivity and seismic methods to pinpoint optimal drilling locations with precision.</p>
+                <div class="learn-more">
+                    <a href="#contact" class="text-blue-600 text-sm font-bold flex items-center gap-2 hover:gap-3 transition-all">
+                        Request Survey <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- Service 2 -->
+            <div class="service-card bg-white p-8 rounded-2xl fade-up fade-up-delay-1">
+                <div class="card-icon w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-5 text-2xl">
+                    <i class="fas fa-drill"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Borehole Drilling</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-4">Professional drilling services for residential, commercial, agricultural, and industrial applications using the latest RC and rotary rigs.</p>
+                <div class="learn-more">
+                    <a href="#contact" class="text-blue-600 text-sm font-bold flex items-center gap-2 hover:gap-3 transition-all">
+                        Get a Quote <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- Service 3 -->
+            <div class="service-card bg-white p-8 rounded-2xl fade-up fade-up-delay-2">
+                <div class="card-icon w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-5 text-2xl">
+                    <i class="fas fa-solar-panel"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Solar Water Systems</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-4">Off-grid solar-powered pumping systems for remote areas. Cost-effective, zero-emission water supply with smart monitoring capability.</p>
+                <div class="learn-more">
+                    <a href="#contact" class="text-blue-600 text-sm font-bold flex items-center gap-2 hover:gap-3 transition-all">
+                        Learn More <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- Service 4 -->
+            <div class="service-card bg-white p-8 rounded-2xl fade-up">
+                <div class="card-icon w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-5 text-2xl">
+                    <i class="fas fa-pump-soap"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Pump Sales & Installation</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-4">Supply and installation of submersible, surface, and solar pumps from leading global manufacturers, matched to your specific yield and head requirements.</p>
+                <div class="learn-more">
+                    <a href="#contact" class="text-blue-600 text-sm font-bold flex items-center gap-2 hover:gap-3 transition-all">
+                        Browse Pumps <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- Service 5 -->
+            <div class="service-card bg-white p-8 rounded-2xl fade-up fade-up-delay-1">
+                <div class="card-icon w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-5 text-2xl">
+                    <i class="fas fa-pipe"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Pipeline & Tank Systems</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-4">Design and installation of complete water distribution networks, elevated storage tanks, geo-membrane ponds, and irrigation systems.</p>
+                <div class="learn-more">
+                    <a href="#contact" class="text-blue-600 text-sm font-bold flex items-center gap-2 hover:gap-3 transition-all">
+                        Design System <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- Service 6 -->
+            <div class="service-card bg-white p-8 rounded-2xl fade-up fade-up-delay-2">
+                <div class="card-icon w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-5 text-2xl">
+                    <i class="fas fa-building"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Civil Construction</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-4">Construction of pump houses, generator shelters, water offices, and production wells. Borehole rehabilitation and rejuvenation services.</p>
+                <div class="learn-more">
+                    <a href="#contact" class="text-blue-600 text-sm font-bold flex items-center gap-2 hover:gap-3 transition-all">
+                        Discuss Project <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- Service 7 -->
+            <div class="service-card bg-white p-8 rounded-2xl fade-up">
+                <div class="card-icon w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-5 text-2xl">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Environmental Impact Assessment</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-4">Comprehensive EIA reports for water projects to meet regulatory requirements. We liaise with NEMA and local authorities on your behalf.</p>
+                <div class="learn-more">
+                    <a href="#contact" class="text-blue-600 text-sm font-bold flex items-center gap-2 hover:gap-3 transition-all">
+                        Get EIA Report <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- Service 8 -->
+            <div class="service-card bg-white p-8 rounded-2xl fade-up fade-up-delay-1">
+                <div class="card-icon w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-5 text-2xl">
+                    <i class="fas fa-swimming-pool"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Ponds & Swimming Pools</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-4">Design and construction of geo-membrane lined water ponds for irrigation and aquaculture, plus residential and commercial swimming pool installation.</p>
+                <div class="learn-more">
+                    <a href="#contact" class="text-blue-600 text-sm font-bold flex items-center gap-2 hover:gap-3 transition-all">
+                        Start Design <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- Service 9 — CTA Card -->
+            <div class="bg-gradient-to-br from-blue-600 to-blue-800 p-8 rounded-2xl text-white flex flex-col justify-between fade-up fade-up-delay-2">
+                <div>
+                    <div class="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center mb-5 text-2xl">
+                        <i class="fas fa-comments text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Technical Consultation</h3>
+                    <p class="text-blue-200 text-sm leading-relaxed">Not sure which solution you need? Talk to our engineers. We assess your water demand, geology, and budget to propose the right system.</p>
+                </div>
+                <a href="https://wa.me/2567XXXXXXXX" class="mt-8 bg-white text-blue-700 px-6 py-3 rounded-xl font-bold text-sm text-center hover:bg-blue-50 transition inline-block">
+                    <i class="fab fa-whatsapp mr-2"></i> Chat with an Engineer
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== EQUIPMENT ===================== -->
+<section id="equipment" class="py-24 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16 fade-up">
+            <div class="section-label mx-auto justify-center">Our Fleet</div>
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-4">State-of-the-Art Equipment</h2>
+            <p class="text-gray-500 max-w-2xl mx-auto">We invest in the latest technology to ensure every project is completed with maximum efficiency, safety, and precision.</p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Equipment cards with placeholder backgrounds -->
+            <div class="equip-card fade-up">
+                <div style="height:220px;background:linear-gradient(135deg,#1e3a8a,#3b82f6)" class="flex items-center justify-center">
+                    <i class="fas fa-cogs text-white/30 text-7xl"></i>
+                </div>
+                <img src="assets/drilling.jpg" alt="RC Drilling Rig" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'">
+                <div class="equip-overlay">
+                    <span class="text-xs font-bold text-blue-300 uppercase tracking-wider">Drilling Rig</span>
+                    <h4 class="text-white font-bold text-base mt-1">RC / RAB Drilling Rigs</h4>
+                </div>
+            </div>
+            <div class="equip-card fade-up fade-up-delay-1">
+                <div style="height:220px;background:linear-gradient(135deg,#1e3a8a,#2563eb)" class="flex items-center justify-center">
+                    <i class="fas fa-wind text-white/30 text-7xl"></i>
+                </div>
+                <img src="assets/equip2.jpg" alt="Air Compressor" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'">
+                <div class="equip-overlay">
+                    <span class="text-xs font-bold text-blue-300 uppercase tracking-wider">Support</span>
+                    <h4 class="text-white font-bold text-base mt-1">Industrial Air Compressors</h4>
+                </div>
+            </div>
+            <div class="equip-card fade-up fade-up-delay-2">
+                <div style="height:220px;background:linear-gradient(135deg,#1e40af,#60a5fa)" class="flex items-center justify-center">
+                    <i class="fas fa-truck text-white/30 text-7xl"></i>
+                </div>
+                <img src="assets/equip3.jpg" alt="Support Vehicle" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'">
+                <div class="equip-overlay">
+                    <span class="text-xs font-bold text-blue-300 uppercase tracking-wider">Logistics</span>
+                    <h4 class="text-white font-bold text-base mt-1">4WD Support Vehicles</h4>
+                </div>
+            </div>
+            <div class="equip-card fade-up fade-up-delay-3">
+                <div style="height:220px;background:linear-gradient(135deg,#1d4ed8,#93c5fd)" class="flex items-center justify-center">
+                    <i class="fas fa-solar-panel text-white/30 text-7xl"></i>
+                </div>
+                <img src="assets/equip4.jpg" alt="Diamond Rig" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'">
+                <div class="equip-overlay">
+                    <span class="text-xs font-bold text-blue-300 uppercase tracking-wider">Precision</span>
+                    <h4 class="text-white font-bold text-base mt-1">Diamond Core Drilling Rigs</h4>
+                </div>
+            </div>
+        </div>
+        <!-- Equipment Specs Row -->
+        <div class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4 fade-up">
+            <div class="bg-blue-50 rounded-xl p-5 text-center border border-blue-100">
+                <i class="fas fa-ruler-vertical text-blue-600 text-2xl mb-3"></i>
+                <p class="text-2xl font-bold text-gray-900">600m</p>
+                <p class="text-sm text-gray-500 mt-1">Max Drilling Depth</p>
+            </div>
+            <div class="bg-blue-50 rounded-xl p-5 text-center border border-blue-100">
+                <i class="fas fa-tint text-blue-600 text-2xl mb-3"></i>
+                <p class="text-2xl font-bold text-gray-900">50,000L</p>
+                <p class="text-sm text-gray-500 mt-1">Daily Yield Capacity</p>
+            </div>
+            <div class="bg-blue-50 rounded-xl p-5 text-center border border-blue-100">
+                <i class="fas fa-tools text-blue-600 text-2xl mb-3"></i>
+                <p class="text-2xl font-bold text-gray-900">12+</p>
+                <p class="text-sm text-gray-500 mt-1">Equipment Units</p>
+            </div>
+            <div class="bg-blue-50 rounded-xl p-5 text-center border border-blue-100">
+                <i class="fas fa-calendar-check text-blue-600 text-2xl mb-3"></i>
+                <p class="text-2xl font-bold text-gray-900">24/7</p>
+                <p class="text-sm text-gray-500 mt-1">Maintenance Support</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== WHY CHOOSE US ===================== -->
+<section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-6">
+        <div class="flex flex-col lg:flex-row gap-16 items-center">
+            <div class="lg:w-1/2 fade-up">
+                <div class="section-label">Why AquaDrill</div>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-6">The Region's Most Trusted Water Engineers</h2>
+                <p class="text-gray-500 leading-relaxed mb-8">We listen first. Whether you're a multinational, a small farm, or a single household, we propose a solution calibrated to your geology, budget, and water demand — not a generic package.</p>
+                <div class="space-y-4">
+                    <div class="flex items-start gap-4 p-4 bg-white rounded-xl border border-gray-100 hover:border-blue-200 transition">
+                        <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0 text-white">
+                            <i class="fas fa-microscope text-sm"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 text-sm">Scientific Precision</h4>
+                            <p class="text-gray-500 text-xs mt-1">Every site undergoes rigorous geological desk study before a single drill turns.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 bg-white rounded-xl border border-gray-100 hover:border-blue-200 transition">
+                        <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0 text-white">
+                            <i class="fas fa-users text-sm"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 text-sm">Expert Multidisciplinary Team</h4>
+                            <p class="text-gray-500 text-xs mt-1">Hydrogeologists, civil engineers, rig operators, and project managers under one roof.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 bg-white rounded-xl border border-gray-100 hover:border-blue-200 transition">
+                        <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0 text-white">
+                            <i class="fas fa-shield-alt text-sm"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 text-sm">Guaranteed After-Sales Support</h4>
+                            <p class="text-gray-500 text-xs mt-1">12-month maintenance warranty on all installations. Pump spare parts stocked locally.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 bg-white rounded-xl border border-gray-100 hover:border-blue-200 transition">
+                        <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0 text-white">
+                            <i class="fas fa-globe-africa text-sm"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 text-sm">Regional Reach</h4>
+                            <p class="text-gray-500 text-xs mt-1">Active in Uganda, Kenya, Tanzania, Rwanda, South Sudan, DRC, Zambia, and Burundi.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:w-1/2 fade-up fade-up-delay-2">
+                <img src="assets/team.jpg" alt="Team" class="rounded-2xl shadow-2xl w-full object-cover aspect-video"
+                     onerror="this.style.background='linear-gradient(135deg,#dbeafe,#bfdbfe)';this.style.minHeight='360px'">
+                <!-- Team Members -->
+                <div class="grid grid-cols-3 gap-4 mt-6">
+                    <div class="bg-white rounded-xl p-4 text-center border border-gray-100 hover:border-blue-200 transition">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2 font-bold text-blue-700">JD</div>
+                        <p class="font-bold text-xs text-gray-900">Eng. J. Doe</p>
+                        <p class="text-xs text-gray-400 mt-0.5">CEO</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 text-center border border-gray-100 hover:border-blue-200 transition">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2 font-bold text-green-700">SM</div>
+                        <p class="font-bold text-xs text-gray-900">Eng. S. Mwangi</p>
+                        <p class="text-xs text-gray-400 mt-0.5">Hydrogeologist</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 text-center border border-gray-100 hover:border-blue-200 transition">
+                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-2 font-bold text-purple-700">AN</div>
+                        <p class="font-bold text-xs text-gray-900">Eng. A. Nakato</p>
+                        <p class="text-xs text-gray-400 mt-0.5">Project Manager</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== PROCESS ===================== -->
+<section id="process" class="py-24 bg-blue-900 text-white relative overflow-hidden">
+    <div class="absolute inset-0" style="background-image:radial-gradient(circle at 20% 50%, rgba(37,99,235,0.4) 0%,transparent 50%), radial-gradient(circle at 80% 20%, rgba(96,165,250,0.2) 0%, transparent 40%)"></div>
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="text-center mb-16 fade-up">
+            <div class="section-label mx-auto justify-center" style="color: #93c5fd">Our Methodology</div>
+            <h2 class="text-4xl md:text-5xl font-bold mt-2 mb-4">Our Proven 6-Step Process</h2>
+            <p class="text-blue-300 max-w-xl mx-auto">From first call to clean water — here's exactly what to expect when you work with AquaDrill.</p>
+        </div>
+        <div class="grid md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div class="text-center fade-up p-4">
+                <div class="w-16 h-16 bg-blue-600 border-2 border-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl shadow-lg shadow-blue-900">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <div class="text-blue-400 text-xs font-bold mb-1">STEP 1</div>
+                <h4 class="font-bold text-sm mb-2">Consultation</h4>
+                <p class="text-blue-300 text-xs leading-relaxed">Initial call to understand your water needs, location, and budget.</p>
+            </div>
+            <div class="text-center fade-up fade-up-delay-1 p-4">
+                <div class="w-16 h-16 bg-blue-600 border-2 border-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl shadow-lg shadow-blue-900">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <div class="text-blue-400 text-xs font-bold mb-1">STEP 2</div>
+                <h4 class="font-bold text-sm mb-2">Site Visit</h4>
+                <p class="text-blue-300 text-xs leading-relaxed">Engineers assess terrain, access routes, and community water points.</p>
+            </div>
+            <div class="text-center fade-up fade-up-delay-2 p-4">
+                <div class="w-16 h-16 bg-blue-600 border-2 border-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl shadow-lg shadow-blue-900">
+                    <i class="fas fa-wave-square"></i>
+                </div>
+                <div class="text-blue-400 text-xs font-bold mb-1">STEP 3</div>
+                <h4 class="font-bold text-sm mb-2">Geo Survey</h4>
+                <p class="text-blue-300 text-xs leading-relaxed">Resistivity and seismic methods to locate optimal drilling targets.</p>
+            </div>
+            <div class="text-center fade-up fade-up-delay-3 p-4">
+                <div class="w-16 h-16 bg-blue-600 border-2 border-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl shadow-lg shadow-blue-900">
+                    <i class="fas fa-drill"></i>
+                </div>
+                <div class="text-blue-400 text-xs font-bold mb-1">STEP 4</div>
+                <h4 class="font-bold text-sm mb-2">Drilling</h4>
+                <p class="text-blue-300 text-xs leading-relaxed">Precision drilling, casing installation, and aquifer development.</p>
+            </div>
+            <div class="text-center fade-up fade-up-delay-4 p-4">
+                <div class="w-16 h-16 bg-blue-600 border-2 border-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl shadow-lg shadow-blue-900">
+                    <i class="fas fa-tint"></i>
+                </div>
+                <div class="text-blue-400 text-xs font-bold mb-1">STEP 5</div>
+                <h4 class="font-bold text-sm mb-2">Pump & Install</h4>
+                <p class="text-blue-300 text-xs leading-relaxed">Pump selection, installation, solar setup, and pipeline connection.</p>
+            </div>
+            <div class="text-center fade-up p-4" style="transition-delay:0.5s">
+                <div class="w-16 h-16 bg-green-600 border-2 border-green-400 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl shadow-lg">
+                    <i class="fas fa-check-double"></i>
+                </div>
+                <div class="text-green-400 text-xs font-bold mb-1">STEP 6</div>
+                <h4 class="font-bold text-sm mb-2">Commissioning</h4>
+                <p class="text-blue-300 text-xs leading-relaxed">Water quality testing, documentation handover, and warranty start.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== PROJECTS ===================== -->
+<section id="projects" class="py-24 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-12 fade-up">
+            <div class="section-label mx-auto justify-center">Portfolio</div>
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-4">Selected Projects</h2>
+            <p class="text-gray-500 max-w-xl mx-auto">Over 500 completed projects across 8 countries — a small selection below.</p>
+        </div>
+        <!-- Filter Tabs -->
+        <div class="flex flex-wrap justify-center gap-2 mb-10 fade-up">
+            <button class="tab-btn active px-5 py-2 rounded-full text-sm font-bold text-gray-600 hover:text-blue-600 transition" data-filter="all">All Projects</button>
+            <button class="tab-btn px-5 py-2 rounded-full text-sm font-bold text-gray-600 hover:text-blue-600 transition" data-filter="drilling">Borehole Drilling</button>
+            <button class="tab-btn px-5 py-2 rounded-full text-sm font-bold text-gray-600 hover:text-blue-600 transition" data-filter="solar">Solar Systems</button>
+            <button class="tab-btn px-5 py-2 rounded-full text-sm font-bold text-gray-600 hover:text-blue-600 transition" data-filter="civil">Civil Works</button>
+            <button class="tab-btn px-5 py-2 rounded-full text-sm font-bold text-gray-600 hover:text-blue-600 transition" data-filter="pipeline">Pipeline</button>
+        </div>
+        <!-- Project Grid -->
+        <div id="projectGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Project Cards -->
+            <div class="project-card show rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 hover:shadow-lg transition" data-cat="drilling">
+                <div class="h-48 bg-gradient-to-br from-blue-800 to-blue-600 flex items-center justify-center relative">
+                    <i class="fas fa-drill text-white/20 text-7xl"></i>
+                    <div class="absolute top-4 left-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">Borehole Drilling</div>
+                </div>
+                <div class="p-6">
+                    <h4 class="font-bold text-gray-900 text-lg mb-1">Kasese Rural Water Supply</h4>
+                    <p class="text-sm text-gray-500 mb-3">3 boreholes, 180m depth average. Serves 2,400 community members with clean water year-round.</p>
+                    <div class="flex items-center justify-between text-xs text-gray-400">
+                        <span><i class="fas fa-map-marker-alt mr-1 text-blue-500"></i>Kasese, Uganda</span>
+                        <span><i class="fas fa-calendar mr-1 text-blue-500"></i>2024</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card show rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 hover:shadow-lg transition" data-cat="solar">
+                <div class="h-48 bg-gradient-to-br from-yellow-600 to-orange-500 flex items-center justify-center relative">
+                    <i class="fas fa-solar-panel text-white/20 text-7xl"></i>
+                    <div class="absolute top-4 left-4 bg-yellow-500 text-white text-xs font-bold px-3 py-1 rounded-full">Solar System</div>
+                </div>
+                <div class="p-6">
+                    <h4 class="font-bold text-gray-900 text-lg mb-1">Mwea Agricultural Solar Borehole</h4>
+                    <p class="text-sm text-gray-500 mb-3">2.5kW solar pump system for 400-acre rice irrigation scheme. Zero grid dependency.</p>
+                    <div class="flex items-center justify-between text-xs text-gray-400">
+                        <span><i class="fas fa-map-marker-alt mr-1 text-blue-500"></i>Kirinyaga, Kenya</span>
+                        <span><i class="fas fa-calendar mr-1 text-blue-500"></i>2024</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card show rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 hover:shadow-lg transition" data-cat="civil">
+                <div class="h-48 bg-gradient-to-br from-gray-700 to-gray-500 flex items-center justify-center relative">
+                    <i class="fas fa-building text-white/20 text-7xl"></i>
+                    <div class="absolute top-4 left-4 bg-gray-600 text-white text-xs font-bold px-3 py-1 rounded-full">Civil Works</div>
+                </div>
+                <div class="p-6">
+                    <h4 class="font-bold text-gray-900 text-lg mb-1">Rubaga Hospital Water System</h4>
+                    <p class="text-sm text-gray-500 mb-3">Pump house, overhead tank, and complete hospital water reticulation network.</p>
+                    <div class="flex items-center justify-between text-xs text-gray-400">
+                        <span><i class="fas fa-map-marker-alt mr-1 text-blue-500"></i>Kampala, Uganda</span>
+                        <span><i class="fas fa-calendar mr-1 text-blue-500"></i>2023</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card show rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 hover:shadow-lg transition" data-cat="pipeline">
+                <div class="h-48 bg-gradient-to-br from-teal-700 to-teal-500 flex items-center justify-center relative">
+                    <i class="fas fa-pipe text-white/20 text-7xl"></i>
+                    <div class="absolute top-4 left-4 bg-teal-600 text-white text-xs font-bold px-3 py-1 rounded-full">Pipeline</div>
+                </div>
+                <div class="p-6">
+                    <h4 class="font-bold text-gray-900 text-lg mb-1">Jinja Industrial Pipeline Network</h4>
+                    <p class="text-sm text-gray-500 mb-3">12km HDPE pipeline network supplying 6 industrial facilities from a shared borehole cluster.</p>
+                    <div class="flex items-center justify-between text-xs text-gray-400">
+                        <span><i class="fas fa-map-marker-alt mr-1 text-blue-500"></i>Jinja, Uganda</span>
+                        <span><i class="fas fa-calendar mr-1 text-blue-500"></i>2023</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card show rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 hover:shadow-lg transition" data-cat="drilling">
+                <div class="h-48 bg-gradient-to-br from-blue-900 to-blue-700 flex items-center justify-center relative">
+                    <i class="fas fa-water text-white/20 text-7xl"></i>
+                    <div class="absolute top-4 left-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">Borehole Drilling</div>
+                </div>
+                <div class="p-6">
+                    <h4 class="font-bold text-gray-900 text-lg mb-1">West Nile Refugee Settlement Wells</h4>
+                    <p class="text-sm text-gray-500 mb-3">UNHCR project — 8 community boreholes with handpumps for 12,000 displaced persons.</p>
+                    <div class="flex items-center justify-between text-xs text-gray-400">
+                        <span><i class="fas fa-map-marker-alt mr-1 text-blue-500"></i>Arua, Uganda</span>
+                        <span><i class="fas fa-calendar mr-1 text-blue-500"></i>2023</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card show rounded-2xl overflow-hidden bg-blue-600 border border-blue-500 hover:shadow-lg transition flex flex-col items-center justify-center p-8 text-center" data-cat="all">
+                <i class="fas fa-folder-open text-white/30 text-5xl mb-4"></i>
+                <h4 class="font-bold text-white text-lg mb-2">View Full Portfolio</h4>
+                <p class="text-blue-200 text-sm mb-6">500+ completed projects across Uganda, Kenya, Tanzania, Rwanda, South Sudan, DRC, Zambia & Burundi.</p>
+                <a href="#contact" class="bg-white text-blue-700 px-6 py-3 rounded-xl font-bold text-sm hover:bg-blue-50 transition">
+                    Request Case Studies
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section id="faq" class="py-24 bg-gray-50">
+    <div class="container mx-auto px-6">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-14 fade-up">
+                <div class="section-label mx-auto justify-center">Common Questions</div>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-4">Frequently Asked Questions</h2>
+                <p class="text-gray-500">Answers to the most common questions about borehole drilling and water projects.</p>
+            </div>
+            <div class="space-y-0 fade-up">
+                <div class="faq-item py-5">
+                    <button class="faq-trigger w-full flex items-center justify-between text-left group">
+                        <span class="font-bold text-gray-900 text-base pr-8 group-hover:text-blue-600 transition">How long does a borehole drilling project take?</span>
+                        <span class="faq-icon w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-xl transition">+</span>
+                    </button>
+                    <div class="faq-answer text-gray-500 text-sm leading-relaxed pr-12">
+                        A typical borehole project takes 5–14 days from mobilisation to commissioning. This includes 1–2 days for geophysical survey, 2–4 days for drilling and casing, and 1–3 days for pump installation and testing. Larger multi-borehole projects may take 3–8 weeks depending on site access and geology.
+                    </div>
+                </div>
+                <div class="faq-item py-5">
+                    <button class="faq-trigger w-full flex items-center justify-between text-left group">
+                        <span class="font-bold text-gray-900 text-base pr-8 group-hover:text-blue-600 transition">What is the cost of drilling a borehole in Uganda?</span>
+                        <span class="faq-icon w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-xl transition">+</span>
+                    </button>
+                    <div class="faq-answer text-gray-500 text-sm leading-relaxed pr-12">
+                        Costs vary significantly based on depth, geology, pump type, and location. A basic borehole with hand pump ranges from UGX 12–25 million. A full motorised system with solar pump and storage tank typically runs UGX 35–80 million. We provide free, no-obligation site quotes after an initial consultation — contact us to start the process.
+                    </div>
+                </div>
+                <div class="faq-item py-5">
+                    <button class="faq-trigger w-full flex items-center justify-between text-left group">
+                        <span class="font-bold text-gray-900 text-base pr-8 group-hover:text-blue-600 transition">Is a geophysical survey always necessary?</span>
+                        <span class="faq-icon w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-xl transition">+</span>
+                    </button>
+                    <div class="faq-answer text-gray-500 text-sm leading-relaxed pr-12">
+                        We strongly recommend it. A proper survey dramatically reduces the risk of drilling a dry hole or hitting poor-yield aquifers — which is expensive and wastes time. In areas with complex geology, a survey can be the difference between success and failure. We use resistivity surveys (VES/WENNER methods) as standard practice.
+                    </div>
+                </div>
+                <div class="faq-item py-5">
+                    <button class="faq-trigger w-full flex items-center justify-between text-left group">
+                        <span class="font-bold text-gray-900 text-base pr-8 group-hover:text-blue-600 transition">Do you provide after-sales and maintenance services?</span>
+                        <span class="faq-icon w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-xl transition">+</span>
+                    </button>
+                    <div class="faq-answer text-gray-500 text-sm leading-relaxed pr-12">
+                        Yes. All our installations come with a 12-month warranty covering pump, pipework, and electrical components. We also offer annual maintenance contracts for pump servicing, water quality testing, and borehole camera inspections. Call or WhatsApp our support line for immediate assistance.
+                    </div>
+                </div>
+                <div class="faq-item py-5">
+                    <button class="faq-trigger w-full flex items-center justify-between text-left group">
+                        <span class="font-bold text-gray-900 text-base pr-8 group-hover:text-blue-600 transition">What permits do I need to drill a borehole?</span>
+                        <span class="faq-icon w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-xl transition">+</span>
+                    </button>
+                    <div class="faq-answer text-gray-500 text-sm leading-relaxed pr-12">
+                        In Uganda, you need a borehole drilling permit from the Directorate of Water Resources Management (DWRM) and in some cases an EIA certificate from NEMA. Our team handles the entire permit application process on your behalf as part of our project package.
+                    </div>
+                </div>
+                <div class="faq-item py-5">
+                    <button class="faq-trigger w-full flex items-center justify-between text-left group">
+                        <span class="font-bold text-gray-900 text-base pr-8 group-hover:text-blue-600 transition">Can you rehabilitate a failed or low-yield borehole?</span>
+                        <span class="faq-icon w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-xl transition">+</span>
+                    </button>
+                    <div class="faq-answer text-gray-500 text-sm leading-relaxed pr-12">
+                        Yes. We offer borehole rejuvenation services including camera inspection, airlifting, surging, and chemical treatment. In many cases, a failed borehole can be restored to full yield at a fraction of the cost of redrilling. Contact us with your borehole logs and we can advise remotely.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== PARTNERS ===================== -->
+<section class="py-16 bg-white border-y border-gray-100">
+    <div class="container mx-auto px-6 text-center mb-10 fade-up">
+        <p class="text-xs font-bold uppercase tracking-widest text-gray-400">Trusted by leading organisations across East Africa</p>
+    </div>
+    <div class="overflow-hidden fade-up">
+        <div class="marquee-track">
+            <div class="partner-logo"><i class="fas fa-globe"></i> UNICEF Uganda</div>
+            <div class="partner-logo"><i class="fas fa-hand-holding-heart"></i> UNHCR</div>
+            <div class="partner-logo"><i class="fas fa-tint"></i> Water Aid</div>
+            <div class="partner-logo"><i class="fas fa-hospital"></i> Uganda MOH</div>
+            <div class="partner-logo"><i class="fas fa-seedling"></i> GIZ Uganda</div>
+            <div class="partner-logo"><i class="fas fa-leaf"></i> NEMA Uganda</div>
+            <div class="partner-logo"><i class="fas fa-building"></i> KCCA</div>
+            <div class="partner-logo"><i class="fas fa-tractor"></i> Ministry of Agriculture</div>
+            <!-- Duplicate for infinite effect -->
+            <div class="partner-logo"><i class="fas fa-globe"></i> UNICEF Uganda</div>
+            <div class="partner-logo"><i class="fas fa-hand-holding-heart"></i> UNHCR</div>
+            <div class="partner-logo"><i class="fas fa-tint"></i> Water Aid</div>
+            <div class="partner-logo"><i class="fas fa-hospital"></i> Uganda MOH</div>
+            <div class="partner-logo"><i class="fas fa-seedling"></i> GIZ Uganda</div>
+            <div class="partner-logo"><i class="fas fa-leaf"></i> NEMA Uganda</div>
+            <div class="partner-logo"><i class="fas fa-building"></i> KCCA</div>
+            <div class="partner-logo"><i class="fas fa-tractor"></i> Ministry of Agriculture</div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== TESTIMONIALS ===================== -->
+<section id="testimonials" class="py-24 bg-gray-50">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16 fade-up">
+            <div class="section-label mx-auto justify-center">Client Feedback</div>
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-4">What Our Clients Say</h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="testimonial-card bg-white p-8 rounded-2xl relative border border-gray-100 fade-up">
+                <div class="flex gap-1 text-yellow-400 mb-4 text-sm">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <i class="fas fa-quote-left text-blue-100 text-5xl absolute top-6 right-6"></i>
+                <p class="text-gray-600 mb-8 leading-relaxed text-sm relative z-10">
+                    "AquaDrill transformed our farm. Before the solar borehole, we struggled with water scarcity every dry season. Now our yields have doubled and we water 24/7 with zero electricity costs."
+                </p>
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white font-bold">RK</div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 text-sm">Regina K.</h4>
+                        <p class="text-xs text-gray-400">Commercial Farmer, Kenya</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card bg-white p-8 rounded-2xl relative border border-gray-100 fade-up fade-up-delay-1">
+                <div class="flex gap-1 text-yellow-400 mb-4 text-sm">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <i class="fas fa-quote-left text-blue-100 text-5xl absolute top-6 right-6"></i>
+                <p class="text-gray-600 mb-8 leading-relaxed text-sm relative z-10">
+                    "The geophysical survey was impressive. They found water where two other companies had failed. The team is professional, communicates clearly, and the after-sales support has been excellent."
+                </p>
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-white font-bold">SO</div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 text-sm">Samuel O.</h4>
+                        <p class="text-xs text-gray-400">Community Leader, West Nile</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card bg-white p-8 rounded-2xl relative border border-gray-100 fade-up fade-up-delay-2">
+                <div class="flex gap-1 text-yellow-400 mb-4 text-sm">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                </div>
+                <i class="fas fa-quote-left text-blue-100 text-5xl absolute top-6 right-6"></i>
+                <p class="text-gray-600 mb-8 leading-relaxed text-sm relative z-10">
+                    "They handled the full EIA process and DWRM permits for us — saved us months of bureaucracy. The borehole now supplies our entire factory and housing estate. Exceptional value."
+                </p>
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">AM</div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 text-sm">Ahmed M.</h4>
+                        <p class="text-xs text-gray-400">Factory Director, Kampala</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== BLOG / RESOURCES ===================== -->
+<section id="blog" class="py-24 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-14 fade-up">
+            <div>
+                <div class="section-label">Knowledge Base</div>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-2">Water Engineering Resources</h2>
+            </div>
+            <a href="#contact" class="text-blue-600 font-bold text-sm flex items-center gap-2 hover:gap-3 transition-all flex-shrink-0">
+                All Articles <i class="fas fa-arrow-right text-xs"></i>
+            </a>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="blog-card rounded-2xl overflow-hidden fade-up">
+                <div class="h-48 bg-gradient-to-br from-blue-700 to-blue-500 flex items-center justify-center overflow-hidden">
+                    <i class="fas fa-wave-square text-white/25 text-8xl"></i>
+                </div>
+                <div class="p-7">
+                    <span class="text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full">Hydrogeology</span>
+                    <h4 class="font-bold text-gray-900 text-lg mt-4 mb-2 leading-snug">Best Geophysical Survey Methods for Groundwater Exploration in Uganda</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-4">A technical overview of VES, WENNER, and seismic refraction methods and when to apply each in East African geology.</p>
+                    <div class="flex items-center justify-between text-xs text-gray-400">
+                        <span><i class="far fa-calendar mr-1"></i> March 2025</span>
+                        <span><i class="far fa-clock mr-1"></i> 6 min read</span>
+                    </div>
+                </div>
+            </div>
+            <div class="blog-card rounded-2xl overflow-hidden fade-up fade-up-delay-1">
+                <div class="h-48 bg-gradient-to-br from-yellow-600 to-orange-500 flex items-center justify-center overflow-hidden">
+                    <i class="fas fa-solar-panel text-white/25 text-8xl"></i>
+                </div>
+                <div class="p-7">
+                    <span class="text-xs font-bold text-orange-600 uppercase tracking-wider bg-orange-50 px-3 py-1 rounded-full">Solar Technology</span>
+                    <h4 class="font-bold text-gray-900 text-lg mt-4 mb-2 leading-snug">Solar Borehole Systems: What You Need to Know Before Installing</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-4">Panel sizing, pump selection, battery vs direct-drive trade-offs, and common installation mistakes to avoid on your solar water project.</p>
+                    <div class="flex items-center justify-between text-xs text-gray-400">
+                        <span><i class="far fa-calendar mr-1"></i> January 2025</span>
+                        <span><i class="far fa-clock mr-1"></i> 8 min read</span>
+                    </div>
+                </div>
+            </div>
+            <div class="blog-card rounded-2xl overflow-hidden fade-up fade-up-delay-2">
+                <div class="h-48 bg-gradient-to-br from-teal-700 to-teal-500 flex items-center justify-center overflow-hidden">
+                    <i class="fas fa-file-contract text-white/25 text-8xl"></i>
+                </div>
+                <div class="p-7">
+                    <span class="text-xs font-bold text-teal-600 uppercase tracking-wider bg-teal-50 px-3 py-1 rounded-full">Regulation</span>
+                    <h4 class="font-bold text-gray-900 text-lg mt-4 mb-2 leading-snug">EIA & DWRM Permits: A Step-by-Step Guide for Uganda Borehole Projects</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-4">Navigate the Environmental Impact Assessment and water use permit process in Uganda without the delays. Updated for 2025 regulations.</p>
+                    <div class="flex items-center justify-between text-xs text-gray-400">
+                        <span><i class="far fa-calendar mr-1"></i> November 2024</span>
+                        <span><i class="far fa-clock mr-1"></i> 5 min read</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section id="contact" class="py-24 bg-gray-50">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-14 fade-up">
+            <div class="section-label mx-auto justify-center">Start Your Project</div>
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-4">Get a Free Consultation</h2>
+            <p class="text-gray-500 max-w-xl mx-auto">Tell us about your project and one of our engineers will respond within 24 hours.</p>
+        </div>
+        <div class="grid lg:grid-cols-5 gap-10">
+            <!-- Contact Info & Hours -->
+            <div class="lg:col-span-2 space-y-6 fade-up">
+                <!-- Contact Cards -->
+                <div class="bg-white rounded-2xl p-6 border border-gray-100 space-y-5">
+                    <div class="flex items-center gap-4">
+                        <div class="w-11 h-11 bg-blue-600 text-white rounded-xl flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-900 text-sm">Call Us</p>
+                            <a href="tel:+256750398000" class="text-gray-500 text-sm hover:text-blue-600 transition">+256 750 398000</a>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-11 h-11 bg-green-500 text-white rounded-xl flex items-center justify-center flex-shrink-0">
+                            <i class="fab fa-whatsapp text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-900 text-sm">WhatsApp</p>
+                            <a href="https://wa.me/2567XXXXXXXX" class="text-gray-500 text-sm hover:text-green-600 transition">+256 750 398000</a>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-11 h-11 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-900 text-sm">Email</p>
+                            <a href="mailto:info@aquadrill.com" class="text-gray-500 text-sm hover:text-blue-600 transition">info@aquadrill.com</a>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-11 h-11 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-900 text-sm">Office</p>
+                            <p class="text-gray-500 text-sm">Kampala, Uganda</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Opening Hours -->
+                <div class="bg-white rounded-2xl p-6 border border-gray-100">
+                    <h4 class="font-bold text-gray-900 mb-4 flex items-center gap-2">
+                        <i class="fas fa-clock text-blue-600"></i> Opening Hours
+                    </h4>
+                    <div class="hours-row">
+                        <span class="text-gray-700 font-medium">Monday – Friday</span>
+                        <div class="flex items-center gap-2"><span class="text-gray-600">8:30 AM – 6:00 PM</span><span class="hours-badge open-badge">Open</span></div>
+                    </div>
+                    <div class="hours-row">
+                        <span class="text-gray-700 font-medium">Saturday</span>
+                        <div class="flex items-center gap-2"><span class="text-gray-600">9:00 AM – 4:00 PM</span><span class="hours-badge open-badge">Open</span></div>
+                    </div>
+                    <div class="hours-row">
+                        <span class="text-gray-700 font-medium">Sunday</span>
+                        <div class="flex items-center gap-2"><span class="text-gray-600">Closed</span><span class="hours-badge closed-badge">Closed</span></div>
+                    </div>
+                    <div class="mt-4 bg-blue-50 rounded-xl p-3 text-xs text-blue-700 font-medium">
+                        <i class="fas fa-info-circle mr-1"></i> Emergency support available 24/7 via WhatsApp
+                    </div>
+                </div>
+            </div>
+            <!-- Contact Form -->
+            <div class="lg:col-span-3 fade-up fade-up-delay-2">
+                <div class="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-5 mb-5">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 mb-2 uppercase tracking-wider">Full Name</label>
+                            <input type="text" placeholder="John Mukasa" class="input-field">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 mb-2 uppercase tracking-wider">Email Address</label>
+                            <input type="email" placeholder="john@example.com" class="input-field">
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-5 mb-5">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 mb-2 uppercase tracking-wider">Phone / WhatsApp</label>
+                            <input type="tel" placeholder="+256 7XX XXX XXX" class="input-field">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 mb-2 uppercase tracking-wider">Project Type</label>
+                            <select class="input-field text-gray-600">
+                                <option value="">Select service...</option>
+                                <option>Borehole Drilling</option>
+                                <option>Geophysical Survey</option>
+                                <option>Solar Water System</option>
+                                <option>Pump Installation</option>
+                                <option>Pipeline & Tank System</option>
+                                <option>Civil Construction</option>
+                                <option>EIA / Permits</option>
+                                <option>Borehole Rehabilitation</option>
+                                <option>Technical Consultation</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <label class="block text-xs font-bold text-gray-700 mb-2 uppercase tracking-wider">Project Location</label>
+                        <input type="text" placeholder="District / Region / Country" class="input-field">
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-xs font-bold text-gray-700 mb-2 uppercase tracking-wider">Project Details</label>
+                        <textarea placeholder="Describe your water needs, project scale, timeline, and any specific requirements..." rows="4" class="input-field resize-none"></textarea>
+                    </div>
+                    <button id="submitBtn" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition flex items-center justify-center gap-2 shadow-md hover:shadow-blue-200 text-base">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                    <p class="text-center text-xs text-gray-400 mt-4">We respond within 24 hours. Your information is kept confidential.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="bg-gray-900 text-gray-400">
+    <div class="container mx-auto px-6 pt-16 pb-10">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+            <!-- Col 1: Brand -->
+            <div class="lg:col-span-1">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-faucet-drip text-white"></i>
+                    </div>
+                    <div>
+                        <span class="text-white font-bold text-lg leading-none block">AquaDrill</span>
+                        <span class="text-blue-400 text-xs font-semibold tracking-wider">ENGINEERING</span>
+                    </div>
+                </div>
+                <p class="text-sm leading-relaxed mb-5">Meeting the water needs of communities, farms, and industries across East Africa since 2009.</p>
+                <div class="flex space-x-3">
+                    <a href="#" class="w-9 h-9 bg-gray-800 hover:bg-blue-600 rounded-lg flex items-center justify-center transition text-sm"><i class="fab fa-facebook-f text-white"></i></a>
+                    <a href="#" class="w-9 h-9 bg-gray-800 hover:bg-blue-400 rounded-lg flex items-center justify-center transition text-sm"><i class="fab fa-twitter text-white"></i></a>
+                    <a href="#" class="w-9 h-9 bg-gray-800 hover:bg-blue-700 rounded-lg flex items-center justify-center transition text-sm"><i class="fab fa-linkedin-in text-white"></i></a>
+                    <a href="#" class="w-9 h-9 bg-gray-800 hover:bg-pink-600 rounded-lg flex items-center justify-center transition text-sm"><i class="fab fa-instagram text-white"></i></a>
+                    <a href="https://wa.me/2567XXXXXXXX" class="w-9 h-9 bg-gray-800 hover:bg-green-600 rounded-lg flex items-center justify-center transition text-sm"><i class="fab fa-whatsapp text-white"></i></a>
+                </div>
+            </div>
+            <!-- Col 2: Services -->
+            <div>
+                <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-5">Services</h5>
+                <ul class="space-y-3 text-sm">
+                    <li><a href="#services" class="hover:text-white hover:translate-x-1 inline-flex items-center gap-2 transition">
+                        <i class="fas fa-chevron-right text-blue-500 text-xs"></i>Geophysical Surveying</a></li>
+                    <li><a href="#services" class="hover:text-white hover:translate-x-1 inline-flex items-center gap-2 transition">
+                        <i class="fas fa-chevron-right text-blue-500 text-xs"></i>Borehole Drilling</a></li>
+                    <li><a href="#services" class="hover:text-white hover:translate-x-1 inline-flex items-center gap-2 transition">
+                        <i class="fas fa-chevron-right text-blue-500 text-xs"></i>Solar Water Systems</a></li>
+                    <li><a href="#services" class="hover:text-white hover:translate-x-1 inline-flex items-center gap-2 transition">
+                        <i class="fas fa-chevron-right text-blue-500 text-xs"></i>Pump Sales & Installation</a></li>
+                    <li><a href="#services" class="hover:text-white hover:translate-x-1 inline-flex items-center gap-2 transition">
+                        <i class="fas fa-chevron-right text-blue-500 text-xs"></i>Pipeline Systems</a></li>
+                    <li><a href="#services" class="hover:text-white hover:translate-x-1 inline-flex items-center gap-2 transition">
+                        <i class="fas fa-chevron-right text-blue-500 text-xs"></i>EIA & Permits</a></li>
+                </ul>
+            </div>
+            <!-- Col 3: Quick Links -->
+            <div>
+                <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-5">Quick Links</h5>
+                <ul class="space-y-3 text-sm">
+                    <li><a href="#about" class="hover:text-white inline-flex items-center gap-2 transition">
+                        <i class="fas fa-chevron-right text-blue-500 text-xs"></i>About Us</a></li>
+                    <li><a href="#equipment" class="hover:text-white inline-flex items-center gap-2 transition">
+                        <i class="fas fa-chevron-right text-blue-500 text-xs"></i>Our Equipment</a></li>
+                    <li><a href="#projects" class="hover:text-white inline-flex items-center gap-2 transition">
+                        <i class="fas fa-chevron-right text-blue-500 text-xs"></i>Projects</a></li>
+                    <li><a href="#faq" class="hover:text-white inline-flex items-center gap-2 transition">
+                        <i class="fas fa-chevron-right text-blue-500 text-xs"></i>FAQs</a></li>
+                    <li><a href="#blog" class="hover:text-white inline-flex items-center gap-2 transition">
+                        <i class="fas fa-chevron-right text-blue-500 text-xs"></i>Resources</a></li>
+                    <li><a href="#contact" class="hover:text-white inline-flex items-center gap-2 transition">
+                        <i class="fas fa-chevron-right text-blue-500 text-xs"></i>Contact Us</a></li>
+                </ul>
+            </div>
+            <!-- Col 4: Contact -->
+            <div>
+                <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-5">Get in Touch</h5>
+                <ul class="space-y-4 text-sm">
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-map-marker-alt text-blue-500 mt-1 flex-shrink-0"></i>
+                        <span>Kampala, Uganda<br><span class="text-xs text-gray-500">P.O. Box XXXXX</span></span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fas fa-phone text-blue-500 flex-shrink-0"></i>
+                        <a href="tel:+256750398000" class="hover:text-white transition">+256 7XX XXXXXX</a>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fas fa-envelope text-blue-500 flex-shrink-0"></i>
+                        <a href="mailto:info@aquadrill.com" class="hover:text-white transition">info@aquadrill.com</a>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-clock text-blue-500 mt-1 flex-shrink-0"></i>
+                        <span>Mon–Fri: 8:30 AM – 6:00 PM<br>Sat: 9:00 AM – 4:00 PM</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Bottom Bar -->
+        <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p class="text-sm">&copy; 2026 AquaDrill Engineering. All rights reserved.</p>
+            <div class="flex gap-4 text-xs">
+                <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                <span class="text-gray-600">|</span>
+                <a href="#" class="hover:text-white transition">Terms & Conditions</a>
+                <span class="text-gray-600">|</span>
+                <span class="text-blue-400 font-semibold">ISO 9001:2015 Certified</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/2567XXXXXXXX?text=Hello,%20I%20need%20assistance%20with%20water%20drilling." class="whatsapp-float">
+    <i class="fab fa-whatsapp"></i>
+    <span class="text-sm font-bold hidden md:inline">Get Assistance</span>
+</a>
+
+<!-- Scroll to Top -->
+<div id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <i class="fas fa-chevron-up text-sm"></i>
+</div>
+
+<script>
+// ===================== NAV SCROLL =====================
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+    document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+});
+
+// ===================== MOBILE MENU =====================
+const btn = document.getElementById('hamburgerBtn');
+const menu = document.getElementById('mobileMenu');
+btn.addEventListener('click', () => {
+    btn.classList.toggle('active');
+    menu.classList.toggle('open');
+});
+document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+        btn.classList.remove('active');
+        menu.classList.remove('open');
+    });
+});
+
+// ===================== INTERSECTION OBSERVER (fade-up) =====================
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// ===================== COUNTER ANIMATION =====================
+const counters = document.querySelectorAll('[data-count]');
+const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const target = parseInt(e.target.dataset.count);
+        const suffix = target >= 1000 ? 'K+' : '+';
+        const displayTarget = target >= 1000 ? target / 1000 : target;
+        let current = 0;
+        const step = displayTarget / 60;
+        const timer = setInterval(() => {
+            current += step;
+            if (current >= displayTarget) {
+                e.target.textContent = displayTarget % 1 === 0 ? displayTarget + suffix : displayTarget.toFixed(1) + suffix;
+                clearInterval(timer);
+            } else {
+                e.target.textContent = Math.floor(current) + (suffix === 'K+' ? 'K' : '');
+            }
+        }, 25);
+        counterObserver.unobserve(e.target);
+    });
+}, { threshold: 0.5 });
+counters.forEach(c => counterObserver.observe(c));
+
+// ===================== PROJECT FILTER TABS =====================
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('.project-card').forEach(card => {
+            const show = filter === 'all' || card.dataset.cat === filter;
+            card.classList.toggle('show', show);
+        });
+    });
+});
+
+// ===================== FAQ ACCORDION =====================
+document.querySelectorAll('.faq-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const answer = item.querySelector('.faq-answer');
+        const isOpen = item.classList.contains('active');
+        // Close all
+        document.querySelectorAll('.faq-item').forEach(i => {
+            i.classList.remove('active');
+            i.querySelector('.faq-answer').classList.remove('open');
+        });
+        // Toggle current
+        if (!isOpen) {
+            item.classList.add('active');
+            answer.classList.add('open');
+        }
+    });
+});
+
+// ===================== CONTACT FORM SUBMIT =====================
+document.getElementById('submitBtn').addEventListener('click', function() {
+    this.innerHTML = '<i class="fas fa-check"></i> Message Sent! We\'ll be in touch shortly.';
+    this.style.background = '#16a34a';
+    setTimeout(() => {
+        this.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+        this.style.background = '';
+    }, 4000);
+});
+
+// Set counter suffix correctly
+document.querySelectorAll('[data-count]').forEach(el => {
+    const v = parseInt(el.dataset.count);
+    if (v < 100) el.dataset.suffix = '+';
+    else el.dataset.suffix = '+';
+});
+</script>
+</body>
+</html>
